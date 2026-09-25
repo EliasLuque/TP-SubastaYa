@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="src/SubastaYa.Api/SubastaYa.Api.csproj" Id="f546f0fa-cbeb-4401-8c47-08ece001b5b2" />
+  <Project Path="src/SubastaYa.Aplication/SubastaYa.Aplication.csproj" Id="599c14b9-c668-402c-9d6d-b8c48ea08d1c" />
+  <Project Path="src/SubastaYa.Domain/SubastaYa.Domain.csproj" Id="b7b67a7c-1275-49d8-a44b-7e0a7b4594d0" />
+  <Project Path="src/SubastaYa.Infrastructure/SubastaYa.Infrastructure.csproj" Id="a7938ad6-9392-4da5-b709-a334734918e2" />
+  <Project Path="src/SubastaYa.UI/SubastaYa.UI.csproj" Id="0a3752e8-c135-4c31-9581-189139d5c4da" />
+</Solution>
