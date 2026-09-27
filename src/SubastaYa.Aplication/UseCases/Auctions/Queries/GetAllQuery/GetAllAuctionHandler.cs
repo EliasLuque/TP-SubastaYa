@@ -6,7 +6,7 @@ using SubastaYa.Aplication.Interface.Services;
 
 namespace SubastaYa.Aplication.UseCases.Auctions.Queries.GetAllQuery;
 
-public class GetAllAuctionHandler : IRequestHandler<GetAllAuctionQuery, BaseResponse<IEnumerable<AuctionResponseDto>>>
+internal sealed class GetAllAuctionHandler : IRequestHandler<GetAllAuctionQuery, BaseResponse<IEnumerable<AuctionResponseDto>>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
+using SubastaYa.Aplication.UseCases.Auctions.Queries.GetAllQuery;
 
 namespace SubastaYa.Api.Controllers;
 
@@ -6,4 +9,25 @@ namespace SubastaYa.Api.Controllers;
 [ApiController]
 public class AuctionController : ControllerBase
 {
+    private readonly ISender _sender;
+
+    public AuctionController(ISender sender)
+    {
+        _sender = sender;
+    }
+
+    [HttpGet("auctions")]
+    public async Task<IActionResult> GetAllAuctions()
+    {
+        var query = new GetAllAuctionQuery();
+        var result = await _sender.Send(query);
+        return Ok(result);
+    }
+
+    [HttpPost("auctions")]
+    public async Task<IActionResult> CreateAuction([FromBody] CreateAuctionCommand command)
+    {
+        var result = await _sender.Send(command);
+        return Ok(result);
+    }
 }
