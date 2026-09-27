@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
+using SubastaYa.Aplication.UseCases.Auctions.Commands.DeleteCommand;
+using SubastaYa.Aplication.UseCases.Auctions.Commands.UpdateCommand;
 using SubastaYa.Aplication.UseCases.Auctions.Queries.GetAllQuery;
 
 namespace SubastaYa.Api.Controllers;
@@ -27,6 +29,25 @@ public class AuctionController : ControllerBase
     [HttpPost("auctions")]
     public async Task<IActionResult> CreateAuction([FromBody] CreateAuctionCommand command)
     {
+        var result = await _sender.Send(command);
+        return Ok(result);
+    }
+
+    [HttpPut("auctions/{id}")]
+    public async Task<IActionResult> UpdateAuction(int id, [FromBody] UpdateAuctionCommand command)
+    {
+        if (id != command.Id)
+        {
+            return BadRequest("Auction ID mismatch.");
+        }
+        var result = await _sender.Send(command);
+        return Ok(result);
+    }
+
+    [HttpDelete("auctions/{id}")]
+    public async Task<IActionResult> DeleteAuction(int id)
+    {
+        var command = new DeleteAuctionCommand { Id = id };
         var result = await _sender.Send(command);
         return Ok(result);
     }

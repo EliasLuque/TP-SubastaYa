@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SubastaYa.Aplication.Dtos.Auction;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
+using SubastaYa.Aplication.UseCases.Auctions.Commands.UpdateCommand;
 using SubastaYa.Domain.Entities;
 
 namespace SubastaYa.Aplication.Mappings;
@@ -21,6 +22,11 @@ public class AuctionMapping : Profile
         CreateMap<CreateAuctionCommand, Auction>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => (int)AuctionStatus.SCHEDULED))
             .ForMember(dest => dest.Version, opt => opt.MapFrom(src => 1))
+            .ReverseMap();
+
+        CreateMap<UpdateAuctionCommand, Auction>()
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+            .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
             .ReverseMap();
     }
 }
