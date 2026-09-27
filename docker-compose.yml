@@ -1,0 +1,19 @@
+services:
+  subastaya.api:
+    image: ${DOCKER_REGISTRY-}subastayaapi
+    build:
+      context: .
+      dockerfile: src/SubastaYa.Api/Dockerfile
+  db-posgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+      POSTGRES_DB: subastayadb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  db-postgres-data:
