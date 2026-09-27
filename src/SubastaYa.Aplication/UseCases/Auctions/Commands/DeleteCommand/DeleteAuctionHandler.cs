@@ -22,7 +22,11 @@ internal sealed class DeleteAuctionHandler : IRequestHandler<DeleteAuctionComman
             var existAuction = await _unitOfWork.Auction.GetByIdAsync(request.Id);
             
             if(existAuction == null)
-                throw new KeyNotFoundException($"Auction with Id {request.Id} not found.");
+            {
+                response.IsSuccess = false;
+                response.Message = "Auction not found.";
+                return response;
+            }
             
             await _unitOfWork.Auction.DeleteAsync(request.Id);
             await _unitOfWork.SaveChangesAsync();
