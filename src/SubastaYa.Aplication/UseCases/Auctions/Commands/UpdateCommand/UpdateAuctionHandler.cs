@@ -2,6 +2,7 @@
 using MediatR;
 using SubastaYa.Aplication.Commons.Bases;
 using SubastaYa.Aplication.Interface.Services;
+using SubastaYa.Domain.Entities;
 
 namespace SubastaYa.Aplication.UseCases.Auctions.Commands.UpdateCommand;
 
@@ -22,9 +23,16 @@ internal sealed class UpdateAuctionHandler : IRequestHandler<UpdateAuctionComman
 
         try
         {
-            var auction = _mapper.Map<Domain.Entities.Auction>(request);
-            auction.Id = request.Id;
-            _unitOfWork.Auction.UpdateAsync(auction);
+            var existingAuction = await _unitOfWork.Auction.GetByIdAsync(request.Id);
+            if (existingAuction == null)
+            {
+                response.IsSuccess = false;
+                response.Message = "Auction not found.";
+                return response;
+            }
+
+            _mapper.Map(request, existingAuction);
+            _unitOfWork.Auction.UpdateAsync(existingAuction);
             await _unitOfWork.SaveChangesAsync();
 
             response.IsSuccess = true;

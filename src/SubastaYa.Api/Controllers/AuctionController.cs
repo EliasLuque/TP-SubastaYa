@@ -4,6 +4,7 @@ using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.DeleteCommand;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.UpdateCommand;
 using SubastaYa.Aplication.UseCases.Auctions.Queries.GetAllQuery;
+using SubastaYa.Aplication.UseCases.Auctions.Queries.GetByIdQuery;
 
 namespace SubastaYa.Api.Controllers;
 
@@ -22,6 +23,14 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> GetAllAuctions()
     {
         var query = new GetAllAuctionQuery();
+        var result = await _sender.Send(query);
+        return Ok(result);
+    }
+
+    [HttpGet("auctions/{id}")]
+    public async Task<IActionResult> GetAuctionById(int id)
+    {
+        var query = new GetAuctionByIdQuery { Id = id };
         var result = await _sender.Send(query);
         return Ok(result);
     }
