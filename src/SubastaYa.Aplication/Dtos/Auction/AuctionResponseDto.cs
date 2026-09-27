@@ -1,17 +1,8 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿namespace SubastaYa.Aplication.Dtos.Auction;
 
-namespace SubastaYa.Domain.Entities;
-
-public enum AuctionStatus
+public class AuctionResponseDto
 {
-    ACTIVE = 1,
-    SCHEDULED = 2,
-    FINISHED = 3,
-    UNSOLD = 4
-}
-
-public class Auction : BaseEntity
-{
+    public int Id { get; set; }
     public int SellerId { get; set; }
     public int CategoryId { get; set; }
     public string Title { get; set; } = null!;
@@ -23,5 +14,6 @@ public class Auction : BaseEntity
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public int Status { get; set; }
+    public string StatusDescription { get; set; } = null!;
     public int Version { get; set; }
 }
