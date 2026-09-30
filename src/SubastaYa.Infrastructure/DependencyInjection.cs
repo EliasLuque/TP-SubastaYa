@@ -20,6 +20,10 @@ public static class DependencyInjection
             options.UseNpgsql(configuration.GetConnectionString("SubastaYaConnection"), sqlOptions =>
             {
                 sqlOptions.MigrationsAssembly(assembly);
+                sqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorCodesToAdd: null);
             });
         });
 

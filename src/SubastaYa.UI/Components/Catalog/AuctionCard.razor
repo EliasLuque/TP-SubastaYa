@@ -1,0 +1,91 @@
+﻿
+<div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-body p-3">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge @BadgeColorClass rounded-1 px-2 py-1 fw-normal">@auction.StatusDescription</span>
+            <span class="text-muted small">Categoria</span> @*TO DO*@
+        </div>
+
+        <!-- Image -->
+        <div class="bg-light rounded-3 mb-3 d-flex align-items-center justify-content-center custom-image-container">
+            <img src="@auction.ImageUrl" alt="@auction.Title" class="img-fluid custom-image"/>
+        </div>
+
+        <!-- Title and Category -->
+        <h6 class="card-title fw-bold mb-0">@auction.Title</h6>
+        <p class="text-muted small mb-3">Categoria</p>  @*TO DO*@
+
+        <!-- Price -->
+        <div class="d-flex justify-content-between align-items-end mb-3">
+            <div>
+                <small class="text-muted d-block">@PriceLabel</small>
+                <span class="fw-bold fs-5">@auction.CurrentPrice.ToString("C0")</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="card-footer bg-white border-top-0 p-3 pt-0">
+            @if(auction.Status == 1)
+            {
+                <div class="@(IsCritical ? "bg-danger-subtle text-danger" : "bg-light text-bg-dark ") p-2 rounded-2 text-center small fw-medium">
+                    @if (IsCritical)
+                    {
+                        <span><i class="bi bi-exclamation-triangle-fill me-1"></i>¡Zona Crítica! <br /> Quedan: @remaining</span>
+                    }
+                    else
+                    {
+                        <span>Tiempo Restante: @remaining</span>
+                    }
+                </div>
+            }
+            else if(auction.Status == 3)
+            {
+                <div class="bg-secondary-subtle text-secondary p-2 rounded-2 text-center small fw-medium text-uppercase">
+                    Finalizada
+                </div>
+            }
+            else if (auction.Status == 2)
+            {
+                <div class="bg-light text-dark p-2 rounded-2 text-center small fw-medium">
+                    Comienza en: @remaining
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter] public AuctionResponseDto? auction { get; set; }
+    [Parameter] public CategoryResponseDto? category { get; set; }
+
+    private TimeSpan remaining => auction.EndDate - DateTime.UtcNow;
+    private bool IsCritical => auction.Status == 1
+                               && remaining > TimeSpan.Zero && remaining < TimeSpan.FromMinutes(5);
+
+
+    private string BadgeColorClass => auction.Status switch
+    {
+        1 => "bg-success text-success bg-opacity-25",
+        3 => "bg-secondary text-secondary bg-opacity-25",
+        2 => "bg-primary text-primary bg-opacity-25",
+        4 => "bg-light text-dark",
+        _ => ""
+    };
+
+    private string PriceLabel => auction.Status switch
+    {
+        1 => "Mayor Puja",
+        3 => "Precio Base",
+        2 => "Precio Final"
+    };
+
+    private string TimeText => auction.Status switch
+    {
+        1 => $"Tiempo Restante: {remaining}",
+        2 => $"Comienza en: {(auction.StartDate - DateTime.UtcNow).Days} días y {(auction.StartDate - DateTime.UtcNow).Hours}h",
+        _ => "FINALIZADA"
+    };
+}

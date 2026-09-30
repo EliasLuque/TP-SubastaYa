@@ -1,0 +1,73 @@
+﻿<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+
+        <!-- Estado -->
+        <h6 class="fw-bold mb-3">Estado</h6>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="estadoRadio" id="estadoActivas" checked>
+            <label class="form-check-label" for="estadoActivas">Activas</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="estadoRadio" id="estadoProximas">
+            <label class="form-check-label" for="estadoProximas">Próximas</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="estadoRadio" id="estadoFinalizadas">
+            <label class="form-check-label" for="estadoFinalizadas">Finalizadas</label>
+        </div>
+
+        <!-- Categoría -->
+        <h6 class="fw-bold mb-3">Categoría</h6>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="catTech" checked>
+            <label class="form-check-label" for="catTech">Tecnología</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="catCol">
+            <label class="form-check-label" for="catCol">Coleccionables</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="catInd">
+            <label class="form-check-label" for="catInd">Indumentaria</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="catVeh">
+            <label class="form-check-label" for="catVeh">Vehículos</label>
+        </div>
+
+        <!-- Rango de Precios -->
+        <h6 class="fw-bold mb-3">Rango de Precios</h6>
+        <input type="range" class="form-range mb-2" min="5000" max="75000" id="precioRange">
+        <div class="d-flex justify-content-between text-muted small mb-4">
+            <span>$5,000</span>
+            <span>$75,000</span>
+        </div>
+
+        <!-- Ordenamiento -->
+        <h6 class="fw-bold mb-3">Ordenamiento</h6>
+        <select class="form-select text-muted" aria-label="Ordenamiento">
+            <option selected>Menor tiempo restante</option>
+            <option value="1">Mayor precio</option>
+            <option value="2">Menor precio</option>
+            <option value="3">Más ofertas</option>
+        </select>
+
+    </div>
+</div>
+
+@code {
+    [Parameter] public CatalogFilter filter { get; set; } = default!;
+    [Parameter] public IEnumerable<CategoryResponseDto> Categories { get; set; } = Array.Empty<CategoryResponseDto>();
+    [Parameter] public EventCallback<CatalogFilter> FilterChanged { get; set; }
+
+    private void Toggle(int id, bool on)
+    {
+        if (on) filter.Categories.Add(id); else filter.Categories.Remove(id);
+    }
+
+    private Task Update(Action change)
+    {
+        change();
+        return FilterChanged.InvokeAsync(filter);
+    }
+}

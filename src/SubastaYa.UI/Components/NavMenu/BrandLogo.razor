@@ -1,0 +1,20 @@
+﻿<a class="navbar-brand d-flex align-items-center fw-bold @CssClass" href="/">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="36" height="36" class="text-primary me-2">
+        <g transform="rotate(45 20 20)" fill="currentColor">
+            <!-- Parte superior del cabezal -->
+            <rect x="4" y="8" width="12" height="5" rx="2" />
+            <!-- Bloque central -->
+            <rect x="6" y="15" width="8" height="10" />
+            <!-- Parte inferior del cabezal -->
+            <rect x="4" y="27" width="12" height="5" rx="2" />
+            <!-- Mango -->
+            <rect x="10" y="17.5" width="24" height="5" rx="2.5" />
+        </g>
+    </svg>
+    <span class="text-dark fs-4">Subasta</span><span class="text-primary fs-4">Ya</span>
+</a>
+
+@code {
+    [Parameter]
+    public string CssClass { get; set; } = string.Empty;
+}
