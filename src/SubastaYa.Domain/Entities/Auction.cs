@@ -24,4 +24,5 @@ public class Auction : BaseEntity
     public DateTime EndDate { get; set; }
     public int Status { get; set; }
     public int Version { get; set; }
+    public Category Category { get; set; }
 }

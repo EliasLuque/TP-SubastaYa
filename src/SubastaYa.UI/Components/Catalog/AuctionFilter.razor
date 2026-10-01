@@ -56,14 +56,11 @@
 </div>
 
 @code {
-    [Parameter] public CatalogFilter filter { get; set; } = default!;
+    [Parameter] public AuctionFilter filter { get; set; } = default!;
     [Parameter] public IEnumerable<CategoryResponseDto> Categories { get; set; } = Array.Empty<CategoryResponseDto>();
-    [Parameter] public EventCallback<CatalogFilter> FilterChanged { get; set; }
+    [Parameter] public EventCallback<AuctionFilter> FilterChanged { get; set; }
+    
 
-    private void Toggle(int id, bool on)
-    {
-        if (on) filter.Categories.Add(id); else filter.Categories.Remove(id);
-    }
 
     private Task Update(Action change)
     {

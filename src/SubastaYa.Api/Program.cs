@@ -7,11 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure(builder.Configuration)
     .AddAplication();
 
+var Cors = "Cors";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy(name: Cors, policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("*")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -28,8 +29,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+app.UseCors(Cors);
 
-app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

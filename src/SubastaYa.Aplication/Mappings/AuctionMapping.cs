@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using SubastaYa.Aplication.Dtos.Auction;
+using SubastaYa.Aplication.Interface.Services;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.UpdateCommand;
 using SubastaYa.Domain.Entities;
+using System.Data.Common;
 
 namespace SubastaYa.Aplication.Mappings;
 
@@ -18,12 +20,13 @@ public class AuctionMapping : Profile
                 src.Status == (int)AuctionStatus.UNSOLD ? "Unsold" :
                 "Unknown"))
             .ReverseMap();
-        
+        CreateMap<Auction, AuctionResponseDto>()
+            .ForMember(x => x.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
         CreateMap<CreateAuctionCommand, Auction>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => (int)AuctionStatus.SCHEDULED))
             .ForMember(dest => dest.Version, opt => opt.MapFrom(src => 1))
             .ReverseMap();
-
+            
         CreateMap<UpdateAuctionCommand, Auction>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
             .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))

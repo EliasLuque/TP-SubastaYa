@@ -1,11 +1,11 @@
-﻿namespace SubastaYa.Aplication.Dtos.Auction;
+﻿using SubastaYa.Domain.Entities;
+namespace SubastaYa.Aplication.Dtos.Auction;
 
 public class AuctionResponseDto
 {
     public int Id { get; set; }
     public int SellerId { get; set; }
-    public int CategoryId { get; set; }
-    public string Category { get; set; } = null!;
+    public string CategoryName { get; set; } = null!;
     public string Title { get; set; } = null!;
     public string Description { get; set; } = null!;
     public string ImageUrl { get; set; } = null!;
