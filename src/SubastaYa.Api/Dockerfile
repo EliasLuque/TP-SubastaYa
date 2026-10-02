@@ -12,12 +12,12 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["SubastaYa.Api/SubastaYa.Api.csproj", "SubastaYa.Api/"]
-COPY ["SubastaYa.Aplication/SubastaYa.Aplication.csproj", "SubastaYa.Aplication/"]
-COPY ["SubastaYa.Domain/SubastaYa.Domain.csproj", "SubastaYa.Domain/"]
-COPY ["SubastaYa.Infrastructure/SubastaYa.Infrastructure.csproj", "SubastaYa.Infrastructure/"]
+COPY ["src/SubastaYa.Api/SubastaYa.Api.csproj", "SubastaYa.Api/"]
+COPY ["src/SubastaYa.Aplication/SubastaYa.Aplication.csproj", "SubastaYa.Aplication/"]
+COPY ["src/SubastaYa.Domain/SubastaYa.Domain.csproj", "SubastaYa.Domain/"]
+COPY ["src/SubastaYa.Infrastructure/SubastaYa.Infrastructure.csproj", "SubastaYa.Infrastructure/"]
 RUN dotnet restore "./SubastaYa.Api/SubastaYa.Api.csproj"
-COPY . .
+COPY src/ .
 WORKDIR "/src/SubastaYa.Api"
 RUN dotnet build "./SubastaYa.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

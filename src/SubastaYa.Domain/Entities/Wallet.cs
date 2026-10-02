@@ -10,6 +10,9 @@ public class Wallet : BaseEntity
     // Optimistic Locking
     public int Version { get; set; }
 
+    // Navigation Property
+    public User User { get; set; } = null!;
+
     // Relación 1 a muchos
     public ICollection<TransactionLedger> TrasactionLedger { get; set; } = null!;
 }
