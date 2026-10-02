@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace SubastaYa.Domain.Entities;
+﻿namespace SubastaYa.Domain.Entities;
 public enum AuctionStatus
 {
     ACTIVE = 1,
