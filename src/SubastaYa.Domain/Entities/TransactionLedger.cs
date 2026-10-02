@@ -1,24 +1,25 @@
-﻿namespace SubastaYa.Domain.Entities;
-
-public enum TransactionType
+﻿namespace SubastaYa.Domain.Entities
 {
-    DEPOSIT,
-    RETENTION,
-    RELEASE,
-    PAYMENT,
-    COLLECTION
-}
+    public enum TransactionType
+    {
+        DEPOSIT = 1,
+        RETENTION = 2,
+        RELEASE = 3,
+        PAYMENT = 4,
+        COLLECTION = 5
+    }
 
-public class TransactionLedger : BaseEntity
-{
-    public int WalletId { get; set; }
-    public int? AuctionId { get; set; }
-    public TransactionType Type { get; set; }
-    public decimal Amount { get; set; }
-    public DateTime Date { get; set; }
+    public class TransactionLedger : BaseEntity
+    {
+        public int WalletId { get; set; }
+        public int? AuctionId { get; set; }
+        public TransactionType Type { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime Date { get; set; }
 
-    // Navigation Property
-    public Wallet Wallet { get; set; } = null!;
-    public Auction? Auction { get; set; }
+        // Navigation Property
+        public Wallet Wallet { get; set; } = null!;
+        public Auction? Auction { get; set; }
 
+    }
 }

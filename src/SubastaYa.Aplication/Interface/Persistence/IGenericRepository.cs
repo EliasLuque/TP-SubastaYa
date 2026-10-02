@@ -4,9 +4,9 @@ namespace SubastaYa.Aplication.Interface.Persistence;
 
 public interface IGenericRepository<T> where T : BaseEntity
 {
-    Task<IEnumerable<T>> GetAllAsync();
+    IQueryable<T> GetQueryable();
     Task<T> GetByIdAsync(int id);
     Task CreateAsync(T entity);
-    void UpdateAsync(T entity);
+    void Update(T entity);
     Task DeleteAsync(int id);
 }
