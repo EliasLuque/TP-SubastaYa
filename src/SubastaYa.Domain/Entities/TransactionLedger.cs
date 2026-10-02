@@ -1,6 +1,6 @@
 ﻿namespace SubastaYa.Domain.Entities;
 
-public enum TransactinType
+public enum TransactionType
 {
     DEPOSIT,
     RETENTION,
@@ -13,7 +13,7 @@ public class TransactionLedger : BaseEntity
 {
     public int WalletId { get; set; }
     public int? AuctionId { get; set; }
-    public TransactinType Type { get; set; }
+    public TransactionType Type { get; set; }
     public decimal Amount { get; set; }
     public DateTime Date { get; set; }
 
