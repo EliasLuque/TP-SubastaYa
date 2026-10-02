@@ -10,4 +10,17 @@
     <ProjectReference Include="..\SubastaYa.Domain\SubastaYa.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\AuditLog\" />
+    <Folder Include="Dtos\Bid\" />
+    <Folder Include="Dtos\Category\" />
+    <Folder Include="Dtos\Wallet\" />
+    <Folder Include="Dtos\User\" />
+    <Folder Include="Dtos\TransactionLedger\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.2.0" />
+  </ItemGroup>
+
 </Project>

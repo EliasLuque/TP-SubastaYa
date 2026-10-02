@@ -15,15 +15,15 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         _context = context;
         _entity = _context.Set<T>();
     }
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public IQueryable<T> GetQueryable()
     {
-        var response = await _entity.ToListAsync();
+        var response = _context.Set<T>().AsNoTracking();
         return response;
     }
 
     public async Task<T> GetByIdAsync(int id)
     {
-        var response = await _entity.SingleOrDefaultAsync(x => x.Id == id);
+        var response = await _entity.SingleOrDefaultAsync(x => x.Id == id)!;
         return response!;
     }
 
@@ -33,7 +33,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     }
 
 
-    public void UpdateAsync(T entity)
+    public void Update(T entity)
     {
         _context.Update(entity);
     }

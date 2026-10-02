@@ -21,7 +21,7 @@ public class Auction : BaseEntity
     public decimal MinimumIncrement { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public int Status { get; set; }
+    public AuctionStatus Status { get; set; }
 
     // Optimistic Locking
     public int Version { get; set; }
