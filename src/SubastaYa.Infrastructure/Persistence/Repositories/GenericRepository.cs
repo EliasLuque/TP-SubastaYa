@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using SubastaYa.Aplication.Interface.Persistence;
 using SubastaYa.Domain.Entities;
 using SubastaYa.Infrastructure.Persistence.Context;
@@ -42,5 +44,22 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         T entity = await GetByIdAsync(id);
         _context.Remove(entity);
+    }
+
+    public async Task<IEnumerable<TDto>> GetAllProjectedAsync<TDto>(IConfigurationProvider mapperConfig)
+    {
+        return await _context.Set<T>()
+            .AsNoTracking()
+            .ProjectTo<TDto>(mapperConfig)
+            .ToListAsync();
+    }
+
+    public async Task<TDto?> GetByIdProjectedAsync<TDto>(int id, IConfigurationProvider mapperConfig)
+    {
+        return await _context.Set<T>()
+            .AsNoTracking()
+            .Where(x => x.Id == id)
+            .ProjectTo<TDto>(mapperConfig)
+            .FirstOrDefaultAsync();
     }
 }

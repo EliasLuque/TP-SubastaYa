@@ -23,6 +23,14 @@
     <Folder Include="Dtos\Wallet\" />
     <Folder Include="Dtos\User\" />
     <Folder Include="Dtos\TransactionLedger\" />
+    <Folder Include="UseCases\Auctions\Commands\DeleteCommand\" />
+    <Folder Include="UseCases\Auctions\Commands\UpdateCommand\" />
+    <Folder Include="UseCases\AuditLogs\" />
+    <Folder Include="UseCases\Bids\" />
+    <Folder Include="UseCases\Categories\" />
+    <Folder Include="UseCases\Wallets\" />
+    <Folder Include="UseCases\Users\" />
+    <Folder Include="UseCases\TransactionLedger\" />
   </ItemGroup>
 
   <ItemGroup>

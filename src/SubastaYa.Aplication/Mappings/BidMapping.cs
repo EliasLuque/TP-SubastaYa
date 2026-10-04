@@ -14,12 +14,12 @@ public class BidMapping : Profile
             
             .ForMember(dest => dest.UserEmail, opt=>
             opt.MapFrom(src => src.User.Email));
-        
+
         CreateMap<BidCreateDto, Bid>()
             .ForMember(dest => dest.UserId, opt => opt.Ignore())
             .ForMember(dest => dest.BidDate, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Auction, opt => opt.Ignore())
-            .ForMember(dest => dest.User, opt => opt.Ignore())
+            .ForMember(dest => dest.User, opt => opt.Ignore());
     }
 }

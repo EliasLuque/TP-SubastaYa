@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SubastaYa.Aplication.Dtos.Auction;
+using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
 using SubastaYa.Domain.Entities;
 
 namespace SubastaYa.Aplication.Mappings;
@@ -18,18 +19,11 @@ public class AuctionMapping : Profile
             .ForMember(dest => dest.TotalBids, opt =>
             opt.MapFrom(src => src.Bids != null ? src.Bids.Count : 0));
 
-        CreateMap<AuctionCreateDto, Auction>()
-            .ForMember(dest => dest.CurrentPrice, opt =>
-            opt.MapFrom(src => src.BasePrice))
-            
-            .ForMember(dest => dest.SellerId, opt => opt.Ignore())
+        CreateMap<CreateAuctionCommand, Auction>()
+            .ForMember(dest => dest.CurrentPrice, opt => opt.Ignore())
             .ForMember(dest => dest.Status, opt => opt.Ignore())
-
             .ForMember(dest => dest.Id, opt => opt.Ignore())
-            .ForMember(dest => dest.Version, opt => opt.Ignore())
-            .ForMember(dest => dest.Category, opt => opt.Ignore())
-            .ForMember(dest => dest.Bids, opt => opt.Ignore())
-            .ForMember(dest => dest.TransactionLedger, opt => opt.Ignore());
+            .ForMember(dest => dest.Version, opt => opt.Ignore());
     }
 
     private string GetStatusDescription(AuctionStatus status) => status switch
