@@ -25,5 +25,7 @@ public class AuditLogConfiguration : IEntityTypeConfiguration<AuditLog>
             .WithMany()
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasQueryFilter(x => x.State == Domain.Entities.EntityState.ACTIVE);
     }
 }

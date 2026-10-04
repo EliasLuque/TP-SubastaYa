@@ -45,5 +45,7 @@ public class AuctionConfiguration : IEntityTypeConfiguration<Auction>
             .WithOne()
             .HasForeignKey("AuctionId")
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasQueryFilter(x => x.State == Domain.Entities.EntityState.ACTIVE);
     }
 }

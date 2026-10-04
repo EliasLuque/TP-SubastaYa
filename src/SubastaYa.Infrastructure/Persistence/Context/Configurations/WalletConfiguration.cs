@@ -30,5 +30,7 @@ internal class WalletConfiguration : IEntityTypeConfiguration<Wallet>
             .WithOne(x => x.Wallet)
             .HasForeignKey(x => x.WalletId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(x => x.State == Domain.Entities.EntityState.ACTIVE);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SubastaYa.Aplication.Dtos.Auction;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
+using SubastaYa.Aplication.UseCases.Auctions.Commands.UpdateCommand;
 using SubastaYa.Domain.Entities;
 
 namespace SubastaYa.Aplication.Mappings;
@@ -23,7 +24,22 @@ public class AuctionMapping : Profile
             .ForMember(dest => dest.CurrentPrice, opt => opt.Ignore())
             .ForMember(dest => dest.Status, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore())
-            .ForMember(dest => dest.Version, opt => opt.Ignore());
+            .ForMember(dest => dest.Version, opt => opt.Ignore())
+            .ForMember(dest => dest.State, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.DeletedAt, opt => opt.Ignore());
+
+        CreateMap<UpdateAuctionCommand, Auction>()
+            .ForMember(dest => dest.CurrentPrice, opt => opt.Ignore())
+            .ForMember(dest => dest.Status, opt => opt.Ignore())
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.SellerId, opt => opt.Ignore())
+            .ForMember(dest => dest.Version, opt => opt.Ignore())
+            .ForMember(dest => dest.State, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.DeletedAt, opt => opt.Ignore());
     }
 
     private string GetStatusDescription(AuctionStatus status) => status switch

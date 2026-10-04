@@ -40,10 +40,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         _context.Update(entity);
     }
 
-    public async Task DeleteAsync(int id)
+    public void Delete(T entity)
     {
-        T entity = await GetByIdAsync(id);
-        _context.Remove(entity);
+        _context.Set<T>().Remove(entity);
     }
 
     public async Task<IEnumerable<TDto>> GetAllProjectedAsync<TDto>(IConfigurationProvider mapperConfig)

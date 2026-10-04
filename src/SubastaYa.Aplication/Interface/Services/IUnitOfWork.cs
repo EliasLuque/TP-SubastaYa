@@ -12,5 +12,5 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<TransactionLedger> TransactionLedger{ get; }
     IGenericRepository<User> User { get; }
     IGenericRepository<Wallet> Wallet{ get; }
-    Task SaveChangesAsync();
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }

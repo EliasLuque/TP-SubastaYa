@@ -28,5 +28,7 @@ public class TransactionLedgerConfiguration : IEntityTypeConfiguration<Transacti
             .WithMany(x => x.TransactionLedger)
             .HasForeignKey(x => x.AuctionId)
             .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasQueryFilter(x => x.State == Domain.Entities.EntityState.ACTIVE);
     }
 }

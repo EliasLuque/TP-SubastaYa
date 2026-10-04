@@ -23,4 +23,29 @@ public class SubastaYaDbContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+        {
+            switch (entry.State)
+            {
+                case Microsoft.EntityFrameworkCore.EntityState.Added:
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                    entry.Entity.State = Domain.Entities.EntityState.ACTIVE; 
+                    break;
+                case Microsoft.EntityFrameworkCore.EntityState.Modified:
+                    if (entry.Entity.State == Domain.Entities.EntityState.ACTIVE)
+                    {
+                        entry.Entity.UpdatedAt = DateTime.UtcNow;
+                    }
+                    else
+                    {
+                        entry.Entity.DeletedAt = DateTime.UtcNow;
+                    }
+                    break;
+            }
+        }
+        return base.SaveChangesAsync(cancellationToken);
+    }
 }

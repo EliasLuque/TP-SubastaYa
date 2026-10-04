@@ -25,5 +25,7 @@ public class BidConfiguration : IEntityTypeConfiguration<Bid>
             .WithMany()
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(x => x.State == Domain.Entities.EntityState.ACTIVE);
     }
 }

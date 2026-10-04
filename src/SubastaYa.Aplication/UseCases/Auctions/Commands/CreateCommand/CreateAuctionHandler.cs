@@ -39,8 +39,10 @@ internal sealed class CreateAuctionHandler : IRequestHandler<CreateAuctionComman
                 auction.Status = AuctionStatus.ACTIVE;
             }
 
+            auction.State = EntityState.ACTIVE;
+
             await _unitOfWork.Auction.CreateAsync(auction);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             response.IsSuccess = true;
             response.Data = auction.Id;
