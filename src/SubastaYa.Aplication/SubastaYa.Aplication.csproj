@@ -24,7 +24,7 @@
     <Folder Include="Dtos\Wallet\" />
     <Folder Include="Dtos\User\" />
     <Folder Include="Dtos\TransactionLedger\" />
-    <Folder Include="UseCases\Bids\" />
+    <Folder Include="UseCases\Bids\Commands\" />
     <Folder Include="UseCases\Categories\" />
     <Folder Include="UseCases\Wallets\" />
     <Folder Include="UseCases\Users\" />
