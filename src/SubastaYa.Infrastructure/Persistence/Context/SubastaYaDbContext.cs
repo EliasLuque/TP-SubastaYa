@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SubastaYa.Domain.Entities;
 using System.Reflection;
+using System.Text.Json;
 
 namespace SubastaYa.Infrastructure.Persistence.Context;
 
@@ -24,10 +25,15 @@ public class SubastaYaDbContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
+        var auditEntries = new List<AuditLog>();
+
         foreach (var entry in ChangeTracker.Entries<BaseEntity>())
         {
+            if (entry.Entity is AuditLog)
+                continue;
+
             switch (entry.State)
             {
                 case Microsoft.EntityFrameworkCore.EntityState.Added:
@@ -45,7 +51,33 @@ public class SubastaYaDbContext : DbContext
                     }
                     break;
             }
+
+            if(entry.State == Microsoft.EntityFrameworkCore.EntityState.Added || 
+                entry.State == Microsoft.EntityFrameworkCore.EntityState.Modified ||
+                entry.State == Microsoft.EntityFrameworkCore.EntityState.Deleted)
+            {
+                var jsonValue = entry.State == Microsoft.EntityFrameworkCore.EntityState.Deleted ?
+                    JsonSerializer.Serialize(entry.OriginalValues.ToObject()) :
+                    JsonSerializer.Serialize(entry.CurrentValues.ToObject());
+
+                var audit = new AuditLog()
+                {
+                    Entity = entry.Entity.GetType().Name,
+                    EntityId = entry.Entity.Id,
+                    Action = entry.State.ToString(),
+                    Date = DateTime.UtcNow,
+                    JsonDetail = jsonValue
+                };
+
+                auditEntries.Add(audit);
+            }
         }
-        return base.SaveChangesAsync(cancellationToken);
+
+        if(auditEntries.Any())
+        {
+            await Set<AuditLog>().AddRangeAsync(auditEntries, cancellationToken);
+        }
+
+        return await base.SaveChangesAsync(cancellationToken);
     }
 }

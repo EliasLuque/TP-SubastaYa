@@ -27,19 +27,7 @@ internal sealed class CreateAuctionHandler : IRequestHandler<CreateAuctionComman
             var auction = _mapper.Map<Auction>(request);
 
             auction.CurrentPrice = auction.BasePrice;
-            
-            var now = DateTime.UtcNow;
-            if (request.StartDate > now)
-            {
-                auction.Status = AuctionStatus.SCHEDULED;
-            }
-            else
-            {
-                auction.StartDate = now;
-                auction.Status = AuctionStatus.ACTIVE;
-            }
-
-            auction.State = EntityState.ACTIVE;
+            auction.Status = AuctionStatus.SCHEDULED;
 
             await _unitOfWork.Auction.CreateAsync(auction);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

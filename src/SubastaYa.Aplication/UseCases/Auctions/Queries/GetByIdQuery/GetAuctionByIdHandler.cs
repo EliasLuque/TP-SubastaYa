@@ -6,24 +6,24 @@ using SubastaYa.Aplication.Interface.Services;
 
 namespace SubastaYa.Aplication.UseCases.Auctions.Queries.GetByIdQuery;
 
-internal sealed class GetByIdHandler : IRequestHandler<GetByIdQuery, BaseResponse<AuctionResponseDto>>
+internal sealed class GetAuctionByIdHandler : IRequestHandler<GetAuctionByIdQuery, BaseResponse<AuctionResponseDto>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public GetByIdHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetAuctionByIdHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<AuctionResponseDto>> Handle(GetByIdQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<AuctionResponseDto>> Handle(GetAuctionByIdQuery request, CancellationToken cancellationToken)
     {
         var response = new BaseResponse<AuctionResponseDto>();
 
         try
         {
-            var auction = await _unitOfWork.Auction.GetByIdProjectedAsync<AuctionResponseDto>(request.Id, _mapper.ConfigurationProvider);
+            var auction = await _unitOfWork.Auction.GetByIdProjectedAsync<AuctionResponseDto>(request.Id, _mapper.ConfigurationProvider, cancellationToken);
 
             if(auction == null)
             {

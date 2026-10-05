@@ -10,6 +10,6 @@ public interface IGenericRepository<T> where T : BaseEntity
     Task CreateAsync(T entity);
     void Update(T entity);
     void Delete(T entity);
-    Task<IEnumerable<TDto>> GetAllProjectedAsync<TDto>(IConfigurationProvider mapperConfig);
-    Task<TDto?> GetByIdProjectedAsync<TDto>(int id, IConfigurationProvider mapperConfig);
+    Task<IEnumerable<TDto>> GetAllProjectedAsync<TDto>(IConfigurationProvider mapperConfig, CancellationToken cancellationToken);
+    Task<TDto?> GetByIdProjectedAsync<TDto>(int id, IConfigurationProvider mapperConfig, CancellationToken cancellationToken);
 }

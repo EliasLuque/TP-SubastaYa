@@ -45,20 +45,20 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         _context.Set<T>().Remove(entity);
     }
 
-    public async Task<IEnumerable<TDto>> GetAllProjectedAsync<TDto>(IConfigurationProvider mapperConfig)
+    public async Task<IEnumerable<TDto>> GetAllProjectedAsync<TDto>(IConfigurationProvider mapperConfig, CancellationToken cancellationToken)
     {
         return await _context.Set<T>()
             .AsNoTracking()
             .ProjectTo<TDto>(mapperConfig)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<TDto?> GetByIdProjectedAsync<TDto>(int id, IConfigurationProvider mapperConfig)
+    public async Task<TDto?> GetByIdProjectedAsync<TDto>(int id, IConfigurationProvider mapperConfig, CancellationToken cancellationToken)
     {
         return await _context.Set<T>()
             .AsNoTracking()
             .Where(x => x.Id == id)
             .ProjectTo<TDto>(mapperConfig)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }
