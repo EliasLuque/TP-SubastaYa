@@ -24,15 +24,10 @@
     <Folder Include="Dtos\Wallet\" />
     <Folder Include="Dtos\User\" />
     <Folder Include="Dtos\TransactionLedger\" />
-    <Folder Include="UseCases\Bids\Commands\" />
     <Folder Include="UseCases\Categories\" />
     <Folder Include="UseCases\Wallets\" />
     <Folder Include="UseCases\Users\" />
     <Folder Include="UseCases\TransactionLedger\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="16.2.0" />
   </ItemGroup>
 
 </Project>
