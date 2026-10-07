@@ -2,6 +2,7 @@
 using SubastaYa.Aplication.Dtos.Category;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
 using SubastaYa.Aplication.UseCases.Categories.Commands.CreateCommand;
+using SubastaYa.Aplication.UseCases.Categories.Commands.DeleteCommand;
 using SubastaYa.Domain.Entities;
 
 namespace SubastaYa.Aplication.Mappings;
