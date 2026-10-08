@@ -6,6 +6,6 @@ namespace SubastaYa.Aplication.UseCases.Categories.Commands.UpdateCommand;
 public class UpdateCategoryCommand : IRequest<BaseResponse<bool>>
 {
     public int Id { get; set; }
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
     public string? IconUrl { get; set; }
 }

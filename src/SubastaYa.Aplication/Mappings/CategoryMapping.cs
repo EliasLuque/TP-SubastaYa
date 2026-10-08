@@ -3,6 +3,7 @@ using SubastaYa.Aplication.Dtos.Category;
 using SubastaYa.Aplication.UseCases.Auctions.Commands.CreateCommand;
 using SubastaYa.Aplication.UseCases.Categories.Commands.CreateCommand;
 using SubastaYa.Aplication.UseCases.Categories.Commands.DeleteCommand;
+using SubastaYa.Aplication.UseCases.Categories.Commands.UpdateCommand;
 using SubastaYa.Domain.Entities;
 
 namespace SubastaYa.Aplication.Mappings;
@@ -17,6 +18,15 @@ public class CategoryMapping : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Auctions, opt => opt.Ignore())
             
+            .ForMember(dest => dest.State, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.DeletedAt, opt => opt.Ignore());
+
+        CreateMap<UpdateCategoryCommand, Category>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Auctions, opt => opt.Ignore())
+
             .ForMember(dest => dest.State, opt => opt.Ignore())
             .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
             .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())

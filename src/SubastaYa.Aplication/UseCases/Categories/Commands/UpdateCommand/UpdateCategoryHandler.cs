@@ -24,10 +24,20 @@ internal sealed class UpdateCategoryHandler : IRequestHandler<UpdateCategoryComm
         {
             var category = await _unitOfWork.Category.GetByIdAsync(request.Id);
 
-            if(request.Name == null && request.IconUrl == null)
+            if(category == null)
             {
-                category.
+                response.IsSuccess = false;
+                response.Message = "Category not found";
+                return response;
             }
+
+            _mapper.Map(request, category);
+
+            _unitOfWork.Category.Update(category);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            response.IsSuccess = true;
+            response.Message = "Categoy updated successfully.";
         }
         catch (Exception ex)
         {
