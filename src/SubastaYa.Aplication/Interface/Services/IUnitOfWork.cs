@@ -10,7 +10,7 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<Bid> Bid { get; }
     IGenericRepository<Category> Category{ get; }
     ITransactionLedgerRepository TransactionLedger { get; }
-    IGenericRepository<User> User { get; }
+    IUserRepository User { get; }
     IWalletRepository Wallet { get; }
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }

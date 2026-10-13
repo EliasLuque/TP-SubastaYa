@@ -18,8 +18,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Email).IsRequired().HasMaxLength(256);
         builder.HasIndex(x => x.Email).IsUnique();
 
-        builder.Property(x => x.RegistrationDate).IsRequired();
-
         // Relación con Wallet
         builder.HasOne(x => x.Wallet)
             .WithOne()
