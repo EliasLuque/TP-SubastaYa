@@ -13,9 +13,9 @@ public class UnitOfWork : IUnitOfWork
     private readonly IGenericRepository<AuditLog> _auditLog = null!;
     private readonly IGenericRepository<Bid> _bid = null!;
     private readonly IGenericRepository<Category> _category = null!;
-    private readonly IGenericRepository<TransactionLedger> _transactionLedger = null!;
-    private readonly IGenericRepository<User> _user = null!;
-    private readonly IGenericRepository<Wallet> _wallet = null!;
+    private readonly ITransactionLedgerRepository _transactionLedger = null!;
+    private readonly IUserRepository _user = null!;
+    private readonly IWalletRepository _wallet = null!;
 
     public UnitOfWork(SubastaYaDbContext context)
     {
@@ -30,11 +30,11 @@ public class UnitOfWork : IUnitOfWork
 
     public IGenericRepository<Category> Category => _category ?? new GenericRepository<Category>(_context);
 
-    public IGenericRepository<TransactionLedger> TransactionLedger => _transactionLedger ?? new GenericRepository<TransactionLedger>(_context);
+    public ITransactionLedgerRepository TransactionLedger => _transactionLedger ?? new TransactionLedgerRepository(_context);
 
-    public IGenericRepository<User> User => _user ?? new GenericRepository<User>(_context);
+    public IUserRepository User => _user ?? new UserRepository(_context);
 
-    public IGenericRepository<Wallet> Wallet => _wallet ?? new GenericRepository<Wallet>(_context);
+    public IWalletRepository Wallet => _wallet ?? new WalletRepository(_context);
 
     public void Dispose() => _context.Dispose();
 

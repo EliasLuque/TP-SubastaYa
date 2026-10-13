@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="16.2.0" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="MediatR" Version="14.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
@@ -27,6 +28,9 @@
     <Folder Include="UseCases\Wallets\" />
     <Folder Include="UseCases\Users\" />
     <Folder Include="UseCases\TransactionLedger\" />
+    <Folder Include="UseCases\Categories\" />
+    <Folder Include="UseCases\Users\Commands\DeleteCommand\" />
+    <Folder Include="UseCases\Users\Commands\UpdateCommand\" />
   </ItemGroup>
 
 </Project>

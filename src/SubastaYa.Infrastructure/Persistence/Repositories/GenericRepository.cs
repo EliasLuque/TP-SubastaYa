@@ -9,7 +9,7 @@ namespace SubastaYa.Infrastructure.Persistence.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
-    private readonly SubastaYaDbContext _context;
+    protected readonly SubastaYaDbContext _context;
     private readonly DbSet<T> _entity;
 
     public GenericRepository(SubastaYaDbContext context)

@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SubastaYa.Aplication.Interface.Authentication;
 using SubastaYa.Aplication.Interface.Persistence;
 using SubastaYa.Aplication.Interface.Services;
+using SubastaYa.Infrastructure.Authentication;
 using SubastaYa.Infrastructure.Persistence.Context;
 using SubastaYa.Infrastructure.Persistence.Repositories;
 using SubastaYa.Infrastructure.Persistence.Services;
@@ -25,6 +27,9 @@ public static class DependencyInjection
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         return services;
     }

@@ -9,8 +9,8 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<AuditLog> AuditLog{ get; }
     IGenericRepository<Bid> Bid { get; }
     IGenericRepository<Category> Category{ get; }
-    IGenericRepository<TransactionLedger> TransactionLedger{ get; }
-    IGenericRepository<User> User { get; }
-    IGenericRepository<Wallet> Wallet{ get; }
+    ITransactionLedgerRepository TransactionLedger { get; }
+    IUserRepository User { get; }
+    IWalletRepository Wallet { get; }
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }
