@@ -9,7 +9,7 @@ namespace SubastaYa.Infrastructure.Persistence.Services;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly SubastaYaDbContext _context;
-    private readonly IGenericRepository<Auction> _auction = null!;
+    private readonly IAuctionRepository _auction = null!;
     private readonly IGenericRepository<AuditLog> _auditLog = null!;
     private readonly IBidRepository _bid = null!;
     private readonly IGenericRepository<Category> _category = null!;
@@ -22,7 +22,7 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
     }
 
-    public IGenericRepository<Auction> Auction => _auction ?? new GenericRepository<Auction>(_context);
+    public IAuctionRepository Auction => _auction ?? new AuctionRepository(_context);
 
     public IGenericRepository<AuditLog> AuditLog => _auditLog ?? new GenericRepository<AuditLog>(_context);
 

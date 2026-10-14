@@ -1,3 +1,4 @@
+using SubastaYa.Api.Workers;
 using SubastaYa.Aplication;
 using SubastaYa.Infrastructure;
 
@@ -6,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddInfrastructure(builder.Configuration)
     .AddAplication();
+
+// Add Workers
+builder.Services.AddHostedService<AuctionClosingWorker>();
 
 var Cors = "Cors";
 builder.Services.AddCors(options =>

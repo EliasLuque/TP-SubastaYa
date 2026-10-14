@@ -23,10 +23,10 @@ internal sealed class GetAllAuctionHandler : IRequestHandler<GetAllAuctionQuery,
 
         try
         {
-            var auction = await _unitOfWork.Auction.GetAllProjectedAsync<AuctionResponseDto>(_mapper.ConfigurationProvider, cancellationToken);
+            var auctions = await _unitOfWork.Auction.GetCatalogAsync(request.CategoryId, request.Status, _mapper, cancellationToken);
 
             response.IsSuccess = true;
-            response.Data = auction;
+            response.Data = auctions;
             response.Message = "Auctions retrieved successfully.";
         }
         catch (Exception ex)
