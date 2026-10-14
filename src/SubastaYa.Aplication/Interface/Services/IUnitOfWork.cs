@@ -7,7 +7,7 @@ public interface IUnitOfWork : IDisposable
 {
     IGenericRepository<Auction> Auction { get; }
     IGenericRepository<AuditLog> AuditLog{ get; }
-    IGenericRepository<Bid> Bid { get; }
+    IBidRepository Bid { get; }
     IGenericRepository<Category> Category{ get; }
     ITransactionLedgerRepository TransactionLedger { get; }
     IUserRepository User { get; }

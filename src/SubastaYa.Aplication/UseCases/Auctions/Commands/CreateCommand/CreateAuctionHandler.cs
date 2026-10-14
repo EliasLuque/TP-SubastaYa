@@ -24,10 +24,27 @@ internal sealed class CreateAuctionHandler : IRequestHandler<CreateAuctionComman
 
         try
         {
+            var category = await _unitOfWork.Category.GetByIdAsync(request.CategoryId);
+            if (category == null)
+            {
+                response.IsSuccess = false;
+                response.Data = -1;
+                response.Message = "The specified category does not exist.";
+                return response;
+            }
+
             var auction = _mapper.Map<Auction>(request);
 
             auction.CurrentPrice = auction.BasePrice;
-            auction.Status = AuctionStatus.SCHEDULED;
+
+            if (auction.StartDate <= DateTime.UtcNow)
+            {
+                auction.Status = AuctionStatus.ACTIVE;
+            }
+            else
+            {
+                auction.Status = AuctionStatus.SCHEDULED;
+            }
 
             await _unitOfWork.Auction.CreateAsync(auction);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

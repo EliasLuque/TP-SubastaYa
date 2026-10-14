@@ -11,7 +11,7 @@ public class UnitOfWork : IUnitOfWork
     private readonly SubastaYaDbContext _context;
     private readonly IGenericRepository<Auction> _auction = null!;
     private readonly IGenericRepository<AuditLog> _auditLog = null!;
-    private readonly IGenericRepository<Bid> _bid = null!;
+    private readonly IBidRepository _bid = null!;
     private readonly IGenericRepository<Category> _category = null!;
     private readonly ITransactionLedgerRepository _transactionLedger = null!;
     private readonly IUserRepository _user = null!;
@@ -26,7 +26,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IGenericRepository<AuditLog> AuditLog => _auditLog ?? new GenericRepository<AuditLog>(_context);
 
-    public IGenericRepository<Bid> Bid => _bid ?? new GenericRepository<Bid>(_context);
+    public IBidRepository Bid => _bid ?? new BidRepository(_context);
 
     public IGenericRepository<Category> Category => _category ?? new GenericRepository<Category>(_context);
 

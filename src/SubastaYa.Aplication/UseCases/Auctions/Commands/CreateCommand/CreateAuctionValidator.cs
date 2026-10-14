@@ -28,9 +28,13 @@ public class CreateAuctionValidator : AbstractValidator<CreateAuctionCommand>
             .GreaterThan(0).WithMessage("Minimum increment must be greater than zero.");
 
         RuleFor(x => x.StartDate)
-            .GreaterThan(DateTime.UtcNow).WithMessage("Start date must be in the future.");
+            .GreaterThanOrEqualTo(DateTime.UtcNow.AddMinutes(-5)).WithMessage("Start date cannot be in the past.");
 
         RuleFor(x => x.EndDate)
             .GreaterThan(x => x.StartDate).WithMessage("End date must be after start date.");
+
+        RuleFor(x => x.EndDate)
+        .Must((auction, endDate) => (endDate - auction.StartDate).TotalMinutes >= 30)
+        .WithMessage("The auction must last at least 30 minutes.");
     }
 }
